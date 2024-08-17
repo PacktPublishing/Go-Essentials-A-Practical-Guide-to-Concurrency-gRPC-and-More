@@ -1,0 +1,31 @@
+syntax="proto3";
+
+package proto;
+
+option go_package="example.com/todo";
+
+message NewTodo {
+    string name = 1;
+    string description = 2;
+    bool done = 3;
+}
+
+message Todo {
+    string name = 1;
+    string description = 2;
+    bool done = 3;
+    string id = 4;
+}
+
+message TodoId {
+    string id = 1;
+}
+
+message Empty{}
+
+service TodoService {
+    rpc CreateTodo(NewTodo) returns (Todo){}
+    rpc DeleteTodo(TodoId) returns (Empty){}
+    rpc ModifyTodo(Todo) returns (Todo) {}
+    rpc ListTodos(Empty) returns (stream Todo){}
+}
